@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="tab_text_1">Populares</string>
+    <string name="tab_text_2">Mejor valoradas</string>
+    <string name="settings_menu_text_1">Ajustes</string>
+    <string name="settings_menu_text_2">Log out</string>
+    <string name="signed_in">Signed in!</string>
+    <string name="signed_out">Signed out!</string>
+    <string name="signed_cancelled">Signed in cancelled</string>
+    <string name="logout_button">Logout</string>
+    <string name="firebase_user_fmt">Firebase User: %s</string>
+</resources>
