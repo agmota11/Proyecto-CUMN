@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class FavouritesActivity extends AppCompatActivity {
 
@@ -24,13 +27,18 @@ public class FavouritesActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+                 intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.log_out:
-                Toast.makeText(this, "TODO Log out", Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
+                Log.i("Usuers", "User logged out");
+                intent = new Intent(this, EmailPasswordActivity.class);
+                startActivity(intent);
                 break;
         }
         return true;

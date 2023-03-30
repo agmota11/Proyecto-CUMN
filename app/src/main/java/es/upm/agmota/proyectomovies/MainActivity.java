@@ -27,8 +27,7 @@ import es.upm.agmota.proyectomovies.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    
     final static String LOG_TAG = "Main";
 
     private static final int RC_SIGN_IN = 2022;
@@ -51,42 +50,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, FavouritesActivity.class);
             startActivity(intent);
         });
-
-        //Firebase
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // user is signed in
-                    CharSequence username = user.getDisplayName();
-                    Toast.makeText(MainActivity.this, getString(R.string.firebase_user_fmt, username), Toast.LENGTH_LONG).show();
-                    Log.i(LOG_TAG, "onAuthStateChanged() " + getString(R.string.firebase_user_fmt, username));
-                    ((TextView) findViewById(R.id.textView)).setText(getString(R.string.firebase_user_fmt, username));
-                } else {
-                    // user is signed out
-                    startActivityForResult(
-                            // Get an instance of AuthUI based on the default app
-                            AuthUI.getInstance().
-                                    createSignInIntentBuilder().
-                                    setAvailableProviders(Arrays.asList(
-                                            new AuthUI.IdpConfig.GoogleBuilder().build(),
-                                            new AuthUI.IdpConfig.EmailBuilder().build()
-                                    )).
-                                    setIsSmartLockEnabled(!BuildConfig.DEBUG /* credentials */, true /* hints */).
-                                    //setIsSmartLockEnabled(!BuildConfig.DEBUG /* credentials */, true /* hints */).
-                                            build(),
-                            RC_SIGN_IN
-                    );
-
-                    //Remains logged in when unique gmail account
-                    // setIsSmartLockEnabled(!BuildConfig.DEBUG /* credentials */, true /* hints */).
-                    //setIsSmartLockEnabled(BuildConfig.DEBUG /* credentials */, true /* hints */).
-
-                }
-            }
-        };
     }
 
     @Override
@@ -127,13 +90,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
-            new FirebaseAuthUIActivityResultContract(),
-            new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
-                @Override
-                public void onActivityResult(FirebaseAuthUIAuthenticationResult result) {
-                    onSignInResult(result);
-                }
-            }
-    );
 }
