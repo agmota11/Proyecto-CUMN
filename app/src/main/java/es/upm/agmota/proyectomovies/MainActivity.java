@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     
     final static String LOG_TAG = "Main";
 
-    private static final int RC_SIGN_IN = 2022;
+    static final int RC_SIGN_IN = 2022;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

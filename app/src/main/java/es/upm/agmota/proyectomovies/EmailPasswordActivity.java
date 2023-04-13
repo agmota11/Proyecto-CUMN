@@ -1,5 +1,7 @@
 package es.upm.agmota.proyectomovies;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,11 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
+import com.firebase.ui.auth.IdpResponse;
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class EmailPasswordActivity extends AppCompatActivity {
 
@@ -30,23 +39,17 @@ public class EmailPasswordActivity extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        //Buttons
-        Button logInBtn = (Button) findViewById(R.id.logInBtn);
-        logInBtn.setOnClickListener((view) -> {
-            Log.i(LOG_TAG, "Log in button pressed");
-            EditText emailBox = findViewById(R.id.editEmail);
-            EditText passBox = findViewById(R.id.editPassword);
-            signIn(emailBox.getText().toString(), passBox.getText().toString());
-        });
+        // Choose authentication providers
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build()
+        );
 
-        Button createUserBtn = (Button) findViewById(R.id.registerBtn);
-        logInBtn.setOnClickListener((view) -> {
-            Log.i(LOG_TAG, "Log in button pressed");
-            EditText emailBox = findViewById(R.id.editEmail);
-            EditText passBox = findViewById(R.id.editPassword);
-            createAccount(emailBox.getText().toString(), passBox.getText().toString());
-            signIn(emailBox.getText().toString(), passBox.getText().toString());
-        });
+        // Create and launch sign-in intent
+        Intent signInIntent = AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .build();
+        signInLauncher.launch(signInIntent);
     }
     @Override
     public void onStart() {
@@ -101,5 +104,29 @@ public class EmailPasswordActivity extends AppCompatActivity {
                 });
     }
 
+
+    private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
+            new FirebaseAuthUIActivityResultContract(),
+            new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
+                @Override
+                public void onActivityResult(FirebaseAuthUIAuthenticationResult result) {
+                    onSignInResult(result);
+                }
+            }
+    );
+
+    private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
+        IdpResponse response = result.getIdpResponse();
+        if (result.getResultCode() == RESULT_OK) {
+            Log.d(LOG_TAG, "signInWithEmail:success");
+            FirebaseUser user = mAuth.getCurrentUser();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        } else {
+            Log.w(LOG_TAG, "signInWithEmail:failure");
+            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }
