@@ -6,5 +6,7 @@ import retrofit2.http.Query;
 
 public interface IMovieService {
     @GET("movie/popular")
-    Call<MovieResponse> getPopularMovies(@Query("api_key") String apiKey);
+    Call<MovieResponse> getPopularMovies(
+            @Query("api_key") String apiKey,
+            @Query("limit") int limit);
 }

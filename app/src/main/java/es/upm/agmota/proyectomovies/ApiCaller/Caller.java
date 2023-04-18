@@ -2,6 +2,9 @@ package es.upm.agmota.proyectomovies.ApiCaller;
 
 import android.nfc.Tag;
 import android.util.Log;
+import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -18,6 +21,8 @@ public class Caller {
     private String lenguage = "es-ES";
     private String key = "b8146d7df04facbb68dc4e520da46a93";
     private final String TAG = "API_Caller";
+    private List<Movie> movies;
+    private RecyclerView view;
 
     // Create a Retrofit instance
     Retrofit retrofit = new Retrofit.Builder()
@@ -28,14 +33,21 @@ public class Caller {
     // Create a MovieService instance
     IMovieService movieService = retrofit.create(IMovieService.class);
 
+    public Caller(List<Movie> movies, RecyclerView view) {
+        this.movies = movies;
+        this.view = view;
+    }
+
     public void getPopularMovies(){
-        Call<MovieResponse> call = movieService.getPopularMovies(key);
+        Call<MovieResponse> call = movieService.getPopularMovies(key, 50);
+        Log.i(TAG, "Request sended");
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (response.isSuccessful()) {
-                    List<Movie> movies = response.body().getMovies();
-                    // Do something with the movie list
+                    movies.addAll(response.body().getMovies());
+                    Log.i(TAG,  "Request delivered");
+                    view.getAdapter().notifyDataSetChanged();
                 } else {
                     Log.e(TAG,  "Couldn't get popular movies from the api");
                 }
@@ -46,7 +58,6 @@ public class Caller {
                 Log.e(TAG,  "Couldn't get popular movies from the api");
             }
         });
-
     }
 
 }
