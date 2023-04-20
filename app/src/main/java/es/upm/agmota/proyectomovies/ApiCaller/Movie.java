@@ -1,8 +1,12 @@
 package es.upm.agmota.proyectomovies.ApiCaller;
 
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Movie {
+import java.io.Serializable;
+
+public class Movie implements Serializable {
     @SerializedName("id")
     private int id;
 
@@ -18,7 +22,26 @@ public class Movie {
     @SerializedName("poster_path")
     private String posterPath;
 
-    // Getters and setters
+    private final String IMAGES_BASE = "https://image.tmdb.org/t/p/w500/";
+    private int likes = 0;
+    private int dislikes = 0;
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(int dislikes) {
+        this.dislikes = dislikes;
+    }
+// Getters and setters
 
     public int getId() {
         return id;
@@ -37,6 +60,6 @@ public class Movie {
     }
 
     public String getPosterPath() {
-        return posterPath;
+        return IMAGES_BASE + posterPath;
     }
 }

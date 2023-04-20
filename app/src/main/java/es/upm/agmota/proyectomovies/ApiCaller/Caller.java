@@ -16,9 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Caller {
 
-    private String endpoint = "movie/popular?api_key=&language=&page=1";
     private String Url = "https://api.themoviedb.org/3/";
-    private String lenguage = "es-ES";
+    private String language = "es-ES";
     private String key = "b8146d7df04facbb68dc4e520da46a93";
     private final String TAG = "API_Caller";
     private List<Movie> movies;
@@ -39,7 +38,7 @@ public class Caller {
     }
 
     public void getPopularMovies(){
-        Call<MovieResponse> call = movieService.getPopularMovies(key, 50);
+        Call<MovieResponse> call = movieService.getPopularMovies(key, language, 50);
         Log.i(TAG, "Request sended");
         call.enqueue(new Callback<MovieResponse>() {
             @Override
