@@ -9,5 +9,14 @@ public interface IMovieService {
     Call<MovieResponse> getPopularMovies(
             @Query("api_key") String apiKey,
             @Query("language") String language,
-            @Query("limit") int limit);
+            @Query("limit") int limit
+    );
+
+    @GET("movie/top_rated")
+    Call<MovieResponse> getTopRatedMovies(
+            @Query("api_key") String apiKey,
+            @Query("language") String language,
+            @Query("limit") int limit
+    );
+
 }

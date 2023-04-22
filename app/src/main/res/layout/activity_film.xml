@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- Film poster image -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,8 +23,8 @@
                     android:layout_width="190dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:paddingHorizontal="2dp"
-                    android:paddingVertical="1dp"
+                    android:paddingHorizontal="4dp"
+                    android:paddingVertical="4dp"
                     android:scaleType="centerCrop" />
 
                 <LinearLayout
@@ -71,7 +70,7 @@
                     android:id="@+id/like_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="&#128077;"
+                    android:text="&#128077; "
                     android:textSize="18sp" />
 
                 <TextView
@@ -87,7 +86,7 @@
                     android:id="@+id/dislike_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="&#128078;"
+                    android:text="&#128078; "
                     android:textSize="18sp" />
 
                 <TextView
@@ -106,29 +105,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Comments"
+                android:text="@string/comments"
                 android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/comment_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Add a comment..."
+                android:hint="@string/add_a_comment"
                 android:padding="16dp" />
 
             <Button
                 android:id="@+id/comment_submit_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Submit" />
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/submit" />
 
         </LinearLayout>
     </ScrollView>
-
-    <!-- Film title and release date -->
-
-    <!-- Like and dislike buttons -->
-
-    <!-- Comment section -->
 
 </LinearLayout>

@@ -1,8 +1,6 @@
 package es.upm.agmota.proyectomovies.ApiCaller;
 
-import android.nfc.Tag;
 import android.util.Log;
-import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,6 +37,28 @@ public class Caller {
 
     public void getPopularMovies(){
         Call<MovieResponse> call = movieService.getPopularMovies(key, language, 50);
+        Log.i(TAG, "Request sended");
+        call.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                if (response.isSuccessful()) {
+                    movies.addAll(response.body().getMovies());
+                    Log.i(TAG,  "Request delivered");
+                    view.getAdapter().notifyDataSetChanged();
+                } else {
+                    Log.e(TAG,  "Couldn't get popular movies from the api");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                Log.e(TAG,  "Couldn't get popular movies from the api");
+            }
+        });
+    }
+
+    public void getTopRated(){
+        Call<MovieResponse> call = movieService.getTopRatedMovies(key, language, 50);
         Log.i(TAG, "Request sended");
         call.enqueue(new Callback<MovieResponse>() {
             @Override

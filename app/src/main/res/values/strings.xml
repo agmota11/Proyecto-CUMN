@@ -26,4 +26,7 @@
     <string name="dislike">👎</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="submit">Publicar</string>
+    <string name="add_a_comment">Añade un comentario...</string>
+    <string name="comments">Comentarios</string>
 </resources>
