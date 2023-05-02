@@ -25,6 +25,7 @@
                     android:adjustViewBounds="true"
                     android:paddingHorizontal="4dp"
                     android:paddingVertical="4dp"
+                    android:layout_marginTop="10dp"
                     android:scaleType="centerCrop" />
 
                 <LinearLayout
@@ -37,11 +38,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
+                        android:layout_marginTop="10dp"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/film_release_date_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/film_views"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="16dp"
@@ -79,7 +89,6 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:text="0"
                     android:textSize="18sp" />
 
                 <Button
@@ -95,7 +104,6 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:text="0"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -122,6 +130,13 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="@string/submit" />
+
+            <TextView
+                android:id="@+id/comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>
