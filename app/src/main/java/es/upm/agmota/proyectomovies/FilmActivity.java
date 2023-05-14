@@ -4,13 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,7 +19,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
@@ -34,6 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import es.upm.agmota.proyectomovies.ApiCaller.Movie;
+import es.upm.agmota.proyectomovies.LocalPersistence.FavoriteList;
 
 public class FilmActivity extends AppCompatActivity {
 
@@ -58,6 +54,7 @@ public class FilmActivity extends AppCompatActivity {
         TextView overviewTextView = findViewById(R.id.overview_text);
         Button likeButton = findViewById(R.id.like_button);
         Button dislikeButton = findViewById(R.id.dislike_button);
+        Button favButton = findViewById(R.id.fav_button);
         likesTextView = findViewById(R.id.like_count_text);
         dislikesTextView = findViewById(R.id.dislike_count_text);
         commentEditText = findViewById(R.id.comment_edit_text);
@@ -247,5 +244,18 @@ public class FilmActivity extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+
+        favButton.setOnClickListener((view) -> {
+            FavoriteList.getInstance().setContext(this);
+            List<Integer> favs = FavoriteList.getInstance().getMoviesIds();
+            if (favs.stream().anyMatch(x -> x == movie.getId())) {
+                FavoriteList.getInstance().removeMovie(movie);
+                Toast.makeText(this, "Eliminando de favoritos", Toast.LENGTH_SHORT).show();
+            } else {
+                FavoriteList.getInstance().addMovie(movie);
+                Toast.makeText(this, "Añadiendo de favoritos", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

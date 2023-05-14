@@ -79,4 +79,28 @@ public class Caller {
         });
     }
 
+    public void getMoviesByIds(List<Integer> ids){
+        for (int id : ids) {
+            Log.i(TAG, "Request sended");
+            Call<Movie> call = movieService.getMovieById(id, language, key);
+            call.enqueue(new Callback<>() {
+                @Override
+                public void onResponse(Call<Movie> call, Response<Movie> response) {
+                    if (response.isSuccessful()) {
+                        movies.add(response.body());
+                        Log.i(TAG, "Request delivered");
+                        view.getAdapter().notifyDataSetChanged();
+                    } else {
+                        Log.e(TAG, "Couldn't get favourite movies from the api");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Movie> call, Throwable t) {
+                    Log.e(TAG, "Couldn't get favourite movies from the api");
+                }
+            });
+        }
+    }
+
 }
