@@ -53,7 +53,6 @@ public class FavoriteList {
 
     public void setContext(Context context) {
         fileManager = new FileManager("Favourites.txt", context);
-        fileManager.saveFile(getMoviesIds());
         if (!firsTimeLoad) {
             firsTimeLoad = true;
             getMoviesByIds(fileManager.loadFile());
