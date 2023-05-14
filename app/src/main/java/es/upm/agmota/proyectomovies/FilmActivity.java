@@ -67,7 +67,7 @@ public class FilmActivity extends AppCompatActivity {
         // Display movie data
         titleTextView.setText(movie.getTitle());
         Picasso.get().load(movie.getPosterPath()).into(posterImageView);
-        releaseDateTextView.setText(movie.getReleaseDate());
+        releaseDateTextView.setText("Fecha de salida: " + movie.getReleaseDate());
         overviewTextView.setText(movie.getOverview());
 
         // Write a message to the database
