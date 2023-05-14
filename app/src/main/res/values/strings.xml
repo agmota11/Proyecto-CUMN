@@ -29,4 +29,6 @@
     <string name="submit">Publicar</string>
     <string name="add_a_comment">Añade un comentario...</string>
     <string name="comments">Comentarios</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="username">Username</string>
 </resources>
