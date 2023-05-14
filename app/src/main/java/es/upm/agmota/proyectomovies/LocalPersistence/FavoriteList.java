@@ -83,7 +83,6 @@ public class FavoriteList {
 
 
     private void getMoviesByIds(List<Integer> ids){
-        List<Movie> aux = new ArrayList<>();
         for (int id : ids) {
             Log.i(TAG, "Request sended");
             Call<Movie> call = movieService.getMovieById(id, language, key);
@@ -91,7 +90,7 @@ public class FavoriteList {
                 @Override
                 public void onResponse(Call<Movie> call, Response<Movie> response) {
                     if (response.isSuccessful()) {
-                        aux.add(response.body());
+                        movies.add(response.body());
                         Log.i(TAG, "Request delivered");
                     } else {
                         Log.e(TAG, "Couldn't get favourite movies from the api");
@@ -104,6 +103,5 @@ public class FavoriteList {
                 }
             });
         }
-        this.movies = aux;
     }
 }

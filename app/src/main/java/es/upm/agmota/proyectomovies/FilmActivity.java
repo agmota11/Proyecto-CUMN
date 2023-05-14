@@ -246,7 +246,6 @@ public class FilmActivity extends AppCompatActivity {
         });
 
         favButton.setOnClickListener((view) -> {
-            FavoriteList.getInstance().setContext(this);
             List<Integer> favs = FavoriteList.getInstance().getMoviesIds();
             if (favs.stream().anyMatch(x -> x == movie.getId())) {
                 FavoriteList.getInstance().removeMovie(movie);

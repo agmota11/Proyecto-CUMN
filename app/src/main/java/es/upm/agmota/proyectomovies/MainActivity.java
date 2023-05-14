@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.util.Arrays;
 
 
+import es.upm.agmota.proyectomovies.LocalPersistence.FavoriteList;
 import es.upm.agmota.proyectomovies.ui.main.SectionsPagerAdapter;
 import es.upm.agmota.proyectomovies.databinding.ActivityMainBinding;
 
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = binding.fab;
 
+        FavoriteList.getInstance().setContext(this);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(this, FavouritesActivity.class);
             startActivity(intent);

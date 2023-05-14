@@ -25,11 +25,9 @@ public class FavouritesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourites);
-
         RecyclerView movieRecyclerView = findViewById(R.id.movieFav_recyclerView);
         movieRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        FavoriteList.getInstance().setContext(this);
         List<Movie> movieList = FavoriteList.getInstance().getMovies(movieRecyclerView);
         MovieAdapter movieAdapter = new MovieAdapter(movieList);
 
