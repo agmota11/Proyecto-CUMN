@@ -1,10 +1,14 @@
 package es.upm.agmota.proyectomovies.ui.main;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +20,7 @@ import java.util.List;
 import es.upm.agmota.proyectomovies.ApiCaller.Movie;
 import es.upm.agmota.proyectomovies.FavouritesActivity;
 import es.upm.agmota.proyectomovies.FilmActivity;
+import es.upm.agmota.proyectomovies.LocalPersistence.FavoriteList;
 import es.upm.agmota.proyectomovies.R;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -46,6 +51,41 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             intent.putExtra("movie", movie);
             view.getContext().startActivity(intent);
         });
+        holder.itemView.setOnLongClickListener((view) -> {
+            showPopupMenu(view, movie);
+            return true;
+        });
+    }
+
+    private void showPopupMenu(View view, Movie movie) {
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_popup, popupMenu.getMenu());
+
+        // Set menu item click listener
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Handle menu item click
+
+                switch (item.getItemId()) {
+                    case R.id.menuItemFav:
+                        List<Integer> favs = FavoriteList.getInstance().getMoviesIds();
+                        if (favs.stream().anyMatch(x -> x == movie.getId())) {
+                            FavoriteList.getInstance().removeMovie(movie);
+                            Toast.makeText(view.getContext(), "Eliminando de favoritos", Toast.LENGTH_SHORT).show();
+                        } else {
+                            FavoriteList.getInstance().addMovie(movie);
+                            Toast.makeText(view.getContext(), "Añadiendo de favoritos", Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+
+                }
+                return false;
+            }
+        });
+
+        popupMenu.show();
     }
 
     @Override
