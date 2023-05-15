@@ -58,9 +58,9 @@ public class SettingsActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(SettingsActivity.this, "Username updated successfully.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SettingsActivity.this, "Nombre de usuario actualizado", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(SettingsActivity.this, "Failed to update username.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SettingsActivity.this, "No se ha podido actualizar el nombre de usuario.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -72,9 +72,9 @@ public class SettingsActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(SettingsActivity.this, "Password updated successfully.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SettingsActivity.this, "Contraseña actualizada", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(SettingsActivity.this, "Failed to update password.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SettingsActivity.this, "No se ha podido actualizar la contraseña", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

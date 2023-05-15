@@ -215,10 +215,10 @@ public class FilmActivity extends AppCompatActivity {
 
         postCommentButton.setOnClickListener((view) ->{
             if(commentEditText.getText().toString().isBlank()) {
-                Toast.makeText(this, "Please write a comment", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Porfavor, escribe un comentario", Toast.LENGTH_SHORT).show();
                 return;
             }
-            movie.getComments().add("User: " + currentUser.getDisplayName());
+            movie.getComments().add("Usuario: " + currentUser.getDisplayName());
             movie.getComments().add(commentEditText.getText().toString());
             commentsRef.setValue(TextUtils.join(";;", movie.getComments()));
             commentEditText.setText("");
